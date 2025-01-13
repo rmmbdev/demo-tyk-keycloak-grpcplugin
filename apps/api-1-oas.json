@@ -1,0 +1,177 @@
+{
+  "components": {
+    "schemas": {
+      "Health": {
+        "properties": {
+          "hello": {
+            "example": "world",
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "Item": {
+        "properties": {
+          "item_id": {
+            "example": 10,
+            "format": "int64",
+            "type": "integer"
+          },
+          "q": {
+            "example": "paris",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "jwtAuth": {
+        "bearerFormat": "JWT",
+        "scheme": "bearer",
+        "type": "http"
+      }
+    }
+  },
+  "info": {
+    "description": "This is a sample api in swagger",
+    "title": "Swagger FastAPI - OpenAPI 3.0",
+    "version": "0.0.1"
+  },
+  "openapi": "3.0.3",
+  "paths": {
+    "/": {
+      "get": {
+        "description": "root endpoint for checking api health",
+        "operationId": "root",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "summary": "root endpoint for checking api health",
+        "tags": [
+          "root"
+        ]
+      }
+    },
+    "/items/{item_id}": {
+      "get": {
+        "description": "Find items",
+        "operationId": "findItemByItemId",
+        "parameters": [
+          {
+            "description": "Item_id for filter",
+            "in": "path",
+            "name": "item_id",
+            "required": true,
+            "schema": {
+              "default": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "query for filter",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Item"
+                }
+              }
+            },
+            "description": "successful operation"
+          }
+        },
+        "summary": "Finds item by item_id",
+        "tags": [
+          "item"
+        ]
+      }
+    }
+  },
+  "security": [
+    {
+      "jwtAuth": []
+    }
+  ],
+  "servers": [
+    {
+      "url": "http://127.0.0.1:8080/api/"
+    },
+    {
+      "url": "http://fastapi-app:8000"
+    }
+  ],
+  "tags": [
+    {
+      "description": "Root apis",
+      "name": "root"
+    },
+    {
+      "description": "Item apis",
+      "name": "item"
+    }
+  ],
+  "x-tyk-api-gateway": {
+    "info": {
+      "id": "api-1",
+      "orgId": "1",
+      "name": "api-1",
+      "state": {
+        "active": true
+      }
+    },
+    "upstream": {
+      "url": "http://fastapi-app:8000"
+    },
+    "server": {
+      "listenPath": {
+        "value": "/api/",
+        "strip": true
+      },
+      "authentication": {
+        "enabled": true,
+        "baseIdentityProvider": "jwt_claim",
+        "securitySchemes": {
+          "jwtAuth": {
+            "enabled": true,
+            "header": {
+              "enabled": true,
+              "name": "Authorization"
+            },
+            "source": "http://keycloak:8080/realms/my-realm/protocol/openid-connect/certs",
+            "signingMethod": "rsa",
+            "identityBaseField": "sub",
+            "policyFieldName": "resource_access.conf-client.roles",
+            "defaultPolicies": [
+              "my-policy"
+            ]
+          }
+        }
+      }
+    },
+    "middleware": {
+      "global": {
+        "pluginConfig": {
+          "driver": "grpc"
+        }
+      }
+    }
+  }
+}

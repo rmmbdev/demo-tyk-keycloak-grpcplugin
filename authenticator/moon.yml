@@ -1,0 +1,30 @@
+type: application
+language: go
+
+project:
+  name: grpc_middleware
+  description: "The authenticator server"
+
+tasks:
+  # Task to generate protobuf files
+  generate-proto:
+    command: protoc
+    args:
+      - --go_out=./pb
+      - --go-grpc_out=./pb
+      - ./pb/auth.proto
+
+  # Task to run the gRPC server
+  run:
+    command: go
+    args:
+      - run
+      - cmd/main.go
+
+  build:
+    command: 'go build -o bin/app cmd/main.go'
+
+  docker:
+    command: 'docker build --no-cache -t grpc_authenticator .'
+    deps:
+      - '~:build'

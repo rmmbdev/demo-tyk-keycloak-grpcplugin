@@ -1,0 +1,57 @@
+{
+  "_id": "",
+  "id": "my-policy",
+  "name": "defaultkeycloak",
+  "org_id": "1",
+  "rate": 100,
+  "per": 60,
+  "quota_max": 1000,
+  "quota_renewal_rate": 1440,
+  "throttle_interval": 0,
+  "throttle_retry_limit": 0,
+  "max_query_depth": 0,
+  "access_rights": {
+    "api-1": {
+      "api_name": "merchantkeycloak",
+      "api_id": "api-1",
+      "versions": [
+        "Default"
+      ],
+      "allowed_urls": [],
+      "restricted_types": null,
+      "allowed_types": null,
+      "limit": {
+        "rate": 0,
+        "per": 0,
+        "throttle_interval": 0,
+        "throttle_retry_limit": 0,
+        "max_query_depth": 0,
+        "quota_max": 0,
+        "quota_renews": 0,
+        "quota_remaining": 0,
+        "quota_renewal_rate": 0,
+        "smoothing": null
+      },
+      "field_access_rights": null,
+      "disable_introspection": false,
+      "allowance_scope": ""
+    }
+  },
+  "hmac_enabled": false,
+  "enable_http_signature_validation": false,
+  "active": true,
+  "is_inactive": false,
+  "tags": null,
+  "key_expires_in": 0,
+  "partitions": {
+    "quota": false,
+    "rate_limit": false,
+    "complexity": false,
+    "acl": false,
+    "per_api": false
+  },
+  "last_updated": "",
+  "meta_data": null,
+  "graphql_access_rights": null,
+  "smoothing": null
+}

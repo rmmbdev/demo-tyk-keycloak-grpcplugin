@@ -1,0 +1,19 @@
+{
+  "id": "my-policy",
+  "name": "defaultkeycloak",
+  "quota_max": 1000,
+  "quota_renewal_rate": 1440,
+  "allowance": 100,
+  "rate": 100,
+  "per": 60,
+  "access_rights": {
+    "d9442a67ed3c4504bc9fd5e5287f1ccc": {
+      "api_name": "merchantkeycloak",
+      "api_id": "d9442a67ed3c4504bc9fd5e5287f1ccc",
+      "versions": ["Default"],
+      "allowed_urls": []
+    }
+  },
+  "org_id": "1",
+  "active": true
+}
