@@ -6,4 +6,4 @@ bundle.zip
 .moon/cache
 .moon/docker
 
-.idea
+.idea/
